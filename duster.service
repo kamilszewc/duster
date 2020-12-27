@@ -1,0 +1,9 @@
+[Unit]
+Description=Duster daemon
+
+[Service]
+Type=simple
+ExecStart=(path to duster)/duster (ip:port)
+
+[Install]
+WantedBy=multi-user.target

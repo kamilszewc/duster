@@ -1,0 +1,9 @@
+[Unit]
+Description=Pigpiod daemon
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/pigpiod
+
+[Install]
+WantedBy=multi-user.target

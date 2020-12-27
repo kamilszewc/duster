@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ $# == 1 ]
+then
+    # Go to the directory of this script
+    cd `dirname $0`
+
+    # Launch sampler
+    cd sampler;
+    python3 sampler.py &
+    SAMPLER=$!
+
+    # Launch webapp
+    cd ../webapp
+    gunicorn -b $1 webapp:app &
+    WEBAPP=$!
+
+    # Wait for any of the proceses to end/fail
+    wait -n $SAMPLER $WEBAPP
+
+    # Kill both processes
+    kill -9 $SAMPLER && kill -9 $WEBAPP
+else
+    echo "Usage: ./run.sh ip:port"
+fi
+
