@@ -1,9 +1,11 @@
 [Unit]
 Description=Duster daemon
+After=pigpiod.service networking.service
 
 [Service]
 Type=simple
 ExecStart=(path to duster)/duster (ip:port)
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
