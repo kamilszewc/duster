@@ -1,9 +1,13 @@
+import os
 import time
 import sqlalchemy as db
 from hm3301 import Hm3301WrongResponseException, Hm3301
 from config import Config
 from hm3301dummy import Hm3301Dummy
-import pigpio
+try:
+    import pigpio
+except:
+    pass
 
 
 class Sampler(object):
@@ -44,9 +48,13 @@ class Sampler(object):
 if __name__ == '__main__':
 
     if not Config.SAMPLING_DUMMY:
-        pi = pigpio.pi()
+        try:
+            pi = pigpio.pi(os.environ['PIGPIOD_HOST'])
+        except KeyError:
+            pi = pigpio.pi()
+
         hm3301 = Hm3301(pi, sda=Config.PI_SDA, scl=Config.PI_SCL, i2c_address=Config.PI_I2C_ADDRESS)
-    else:
+    else: 
         hm3301 = Hm3301Dummy(None)
 
     sampler = Sampler(hm3301)

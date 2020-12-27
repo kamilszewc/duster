@@ -1,6 +1,9 @@
 import time
 import datetime
-import pigpio
+try:
+    import pigpio
+except:
+    pass
 
 
 class Hm3301WrongResponseException(Exception):
