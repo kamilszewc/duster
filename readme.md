@@ -1,6 +1,4 @@
 ## Duster - Particulate Matter Concentration analyzer
-## Code moved to bitbucket:
-## https://bitbucket.org/kszewc/duster/src/master/
 
 Driver and simple web app application for Raspberry PI and Grove hm3301 sensor.
 This is a first version  - tested only on Raspberry PI 4.
