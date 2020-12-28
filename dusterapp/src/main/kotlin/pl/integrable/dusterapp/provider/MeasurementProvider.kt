@@ -15,14 +15,20 @@ class MeasurementProvider @Autowired constructor(private val jdbcTemplate: JdbcT
     fun provideLastMeasurements(localDateTime: LocalDateTime) : List<Measurement> {
 
         var rowMapper: RowMapper<Measurement> = RowMapper<Measurement> { rs: ResultSet, rowNum: Int ->
-            Measurement(rs.getTimestamp("date"))
+            Measurement(
+                rs.getTimestamp("date"),
+                rs.getDouble("pm1 factory"),
+                rs.getDouble("pm2.5 factory"),
+                rs.getDouble("pm10 factory"),
+                rs.getDouble("pm1 atmospheric"),
+                rs.getDouble("pm2.5 atmospheric"),
+                rs.getDouble("pm10 atmospheric"),
+            )
         }
 
         val timestamp = Timestamp.valueOf(localDateTime)
         val query = "SELECT * FROM concentration WHERE date > '$timestamp'"
         var results = jdbcTemplate.query(query, rowMapper)
-
-        results.forEach { result -> println(result.date) }
 
         return results
     }

@@ -1,0 +1,13 @@
+# JDBC data
+spring.datasource.url: jdbc:sqlite:../db/concentration.sqlite
+
+# Server port
+server.port: 8080
+
+# Logging setup
+logging:
+  file:
+    name: dusterapp.log
+  level:
+    org.springframework: INFO
+    com.essteyr.mammothmanager: DEBUG
