@@ -12,14 +12,10 @@ import java.time.LocalDateTime
 @Service
 class MeasurementProvider @Autowired constructor(private val jdbcTemplate: JdbcTemplate) {
 
-    fun provideLastMeasurements(localDateTime: LocalDateTime) : List<Measurement> {
-
+    private fun getLastMeasurementsFromDatabase(localDateTime: LocalDateTime) : List<Measurement> {
         var rowMapper: RowMapper<Measurement> = RowMapper<Measurement> { rs: ResultSet, rowNum: Int ->
             Measurement(
                 rs.getTimestamp("date"),
-                rs.getDouble("pm1 factory"),
-                rs.getDouble("pm2.5 factory"),
-                rs.getDouble("pm10 factory"),
                 rs.getDouble("pm1 atmospheric"),
                 rs.getDouble("pm2.5 atmospheric"),
                 rs.getDouble("pm10 atmospheric"),
@@ -31,5 +27,14 @@ class MeasurementProvider @Autowired constructor(private val jdbcTemplate: JdbcT
         var results = jdbcTemplate.query(query, rowMapper)
 
         return results
+    }
+
+    fun provideLastMeasurements(localDateTime: LocalDateTime, averageType: String?) : List<Measurement> {
+
+        val measurements = getLastMeasurementsFromDatabase(localDateTime)
+
+        // TODO - averaging
+
+        return measurements
     }
 }

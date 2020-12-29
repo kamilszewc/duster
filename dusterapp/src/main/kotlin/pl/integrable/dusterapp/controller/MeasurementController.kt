@@ -6,8 +6,8 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 import pl.integrable.dusterapp.provider.MeasurementProvider
-import java.sql.Timestamp
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Controller
 class MeasurementController @Autowired constructor(private val measurementProvider: MeasurementProvider) {
@@ -16,7 +16,7 @@ class MeasurementController @Autowired constructor(private val measurementProvid
     private fun measurements(@RequestParam(required = false) hours: Long?,
                              @RequestParam(required = false) minutes: Long?,
                              @RequestParam(required = false) seconds: Long?,
-                             @RequestParam(required = false, name = "time-range") timeRange: String,
+                             @RequestParam(required = false, name = "time-range") timeRange: String?,
                              model: Model) : String {
 
         var localTimeDate = LocalDateTime.now()
@@ -30,40 +30,31 @@ class MeasurementController @Autowired constructor(private val measurementProvid
         if (timeRange == "month") localTimeDate = localTimeDate.minusMonths(1)
         if (timeRange == "year") localTimeDate = localTimeDate.minusYears(1)
 
-        val measurements = measurementProvider.provideLastMeasurements(localTimeDate)
+        val measurements = measurementProvider.provideLastMeasurements(localTimeDate, timeRange)
 
         val plotDate: MutableList<String> = mutableListOf()
-        val plotPm10Factory: MutableList<Double> = mutableListOf()
-        val plotPm25Factory: MutableList<Double> = mutableListOf()
-        val plotPm100Factory: MutableList<Double> = mutableListOf()
         val plotPm10Atmospheric: MutableList<Double> = mutableListOf()
         val plotPm25Atmospheric: MutableList<Double> = mutableListOf()
         val plotPm100Atmospheric: MutableList<Double> = mutableListOf()
 
-        measurements.forEach {measurement ->
-            plotDate.add(measurement.date.toString())
-            plotPm10Factory.add(measurement.pm10Factory)
-            plotPm25Factory.add(measurement.pm25Factory)
-            plotPm100Factory.add(measurement.pm100Factory)
+        var pattern = "yyyy-MM-dd hh:mm"
+        if (timeRange == "hour" || timeRange == "day") {
+            pattern = "hh:mm"
+        }
+
+        measurements.forEach { measurement ->
+            plotDate.add(measurement.date.toLocalDateTime().format(DateTimeFormatter.ofPattern(pattern)))
             plotPm10Atmospheric.add(measurement.pm10Atmospheric)
             plotPm25Atmospheric.add(measurement.pm25Atmospheric)
             plotPm100Atmospheric.add(measurement.pm100Atmospheric)
         }
 
-        val description = "description"
-        model.addAttribute("description", description)
         model.addAttribute("timeRange", timeRange)
 
         model.addAttribute("plotDate", plotDate)
-        model.addAttribute("plotPm10Factory", plotPm10Factory)
-        model.addAttribute("plotPm25Factory", plotPm25Factory)
-        model.addAttribute("plotPm100Factory", plotPm100Factory)
         model.addAttribute("plotPm10Atmospheric", plotPm10Atmospheric)
         model.addAttribute("plotPm25Atmospheric", plotPm25Atmospheric)
         model.addAttribute("plotPm100Atmospheric", plotPm100Atmospheric)
-
-
-        println(timeRange)
 
         return "measurements"
     }

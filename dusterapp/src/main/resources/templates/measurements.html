@@ -4,7 +4,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <title>Measurements</title>
@@ -12,7 +11,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">
-<!--        <img class="d-inline-block align-top" th:src="@{../images/logo.svg}" alt="" width="30" height="30"/> Alsim Cloud-->
+        <img class="d-inline-block align-top" th:src="@{/images/logo.png}" alt="" width="30" height="30"/> Duster sensor
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -43,34 +42,19 @@
         </div>
     </div>
 
+<!--    <div class="chart-atmospheric-container" style="width: 500px; margin-left:auto; margin-right:auto">-->
+    <div class="chart-atmospheric-container" style="position: relative; height:40vh">
+        <canvas id="chart-atmospheric"></canvas>
+    </div>
+
     <div class="card text-center border-light">
         <div class="card-body">
-            <h5 class="card-title">Atmospheric mass concentration</h5>
             <p class="card-text">
-                Refers to mass concentration value obtained by density of main pollutants of air as equivalent particles<br>
+                Atmospheric mass concentration - refers to mass concentration value obtained by density of main pollutants of air as equivalent particles<br>
                 - suitable for typical indoor/outdoor environments
             </p>
         </div>
     </div>
-
-    <div class="chart-atmospheric-container" style="width: 500px; margin-top: 30px; margin-left:auto; margin-right:auto">
-        <canvas id="chart-atmospheric" height="450" width="600"></canvas>
-    </div>
-
-    <div class="card text-center border-light">
-        <div class="card-body">
-            <h5 class="card-title">Factory mass concentration</h5>
-            <p class="card-text">
-                Refers to mass concentration value obtained by density conversion of industrial metal particles<br>
-                - used in workshops/laboratories
-            </p>
-        </div>
-    </div>
-
-    <div class="chart-factory-container" style="width: 500px; margin-top: 30px; margin-left:auto; margin-right:auto">
-        <canvas id="chart-factory" height="450" width="600"></canvas>
-    </div>
-
 </div>
 
 
@@ -119,58 +103,19 @@
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 yAxes: [{
                     ticks: {
                         beginAtZero: true
                     }
-                }]
-            }
-        }
-    });
-</script>
-
-
-<script th:inline="javascript">
-    var ctx = document.getElementById('chart-factory');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: /*[[${plotDate}]]*/ [],
-            datasets:
-                [{
-                    label: 'pm1',
-                    type: 'line',
-                    pointRadius: 0,
-                    data: /*[[${plotPm10Factory}]]*/ [],
-                    borderWidth: 2,
-                    borderColor: "rgb(75, 192, 192)",
-                    fill: false
-                },
-                    {
-                        label: 'pm2.5',
-                        type: 'line',
-                        pointRadius: 0,
-                        data: /*[[${plotPm25Factory}]]*/ [],
-                        borderWidth: 2,
-                        borderColor: "rgb(75, 92, 192)",
-                        fill: false
-                    },
-                    {
-                        label: 'pm10',
-                        type: 'line',
-                        pointRadius: 0,
-                        data: /*[[${plotPm100Factory}]]*/ [],
-                        borderWidth: 2,
-                        borderColor: "rgb(75, 92, 19)",
-                        fill: false
-                    }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
+                }],
+                xAxes: [{
                     ticks: {
-                        beginAtZero: true
+                        //autoSkip: false,
+                        maxRotation: 90,
+                        minRotation: 90
                     }
                 }]
             }
