@@ -1,5 +1,14 @@
 # JDBC data
-spring.datasource.url: jdbc:sqlite:../db/concentration.sqlite
+#spring.datasource.url: jdbc:sqlite:../db/concentration.sqlite
+
+# MySQL
+spring.datasource:
+  url: jdbc:mysql://localhost:3306/duster
+  username: duster
+  password: dusterPassword
+spring.jpa:
+  database-platform: org.hibernate.dialect.MariaDB10Dialect
+  hibernate.ddl-auto: create-drop
 
 # Server port
 server.port: 8080

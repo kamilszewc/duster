@@ -15,12 +15,9 @@ class Hm3301Dummy:
     def get_data(self):
         concentration = {
             'date': datetime.datetime.now(),
-            'pm1 atmospheric': random.randint(a=1, b=100),
-            'pm2.5 atmospheric': random.randint(a=1, b=100),
-            'pm10 atmospheric': random.randint(a=1, b=100),
-            'pm1 factory': random.randint(a=1, b=100),
-            'pm2.5 factory': random.randint(a=1, b=100),
-            'pm10 factory': random.randint(a=1, b=100)
+            'pm10': random.randint(a=1, b=100),
+            'pm25': random.randint(a=1, b=100),
+            'pm100': random.randint(a=1, b=100)
         }
         return concentration
 

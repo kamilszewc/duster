@@ -5,12 +5,12 @@ import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
-import pl.integrable.dusterapp.provider.MeasurementProvider
+import pl.integrable.dusterapp.provider.PmMeasurementProvider
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Controller
-class MeasurementController @Autowired constructor(private val measurementProvider: MeasurementProvider) {
+class PmMeasurementController @Autowired constructor(private val pmMeasurementProvider: PmMeasurementProvider) {
 
     @GetMapping("/measurements")
     private fun measurements(@RequestParam(required = true, name = "time-range") timeRange: String?,
@@ -46,7 +46,7 @@ class MeasurementController @Autowired constructor(private val measurementProvid
             pattern = "yyyy-MM-dd"
         }
 
-        val measurements = measurementProvider.provideLastMeasurements(localTimeDate, averageType)
+        val measurements = pmMeasurementProvider.provideLastMeasurements(localTimeDate, averageType)
 
         val plotDate: MutableList<String> = mutableListOf()
         val plotPm10Atmospheric: MutableList<Double> = mutableListOf()
@@ -54,10 +54,10 @@ class MeasurementController @Autowired constructor(private val measurementProvid
         val plotPm100Atmospheric: MutableList<Double> = mutableListOf()
 
         measurements.forEach { measurement ->
-            plotDate.add(measurement.date.toLocalDateTime().format(DateTimeFormatter.ofPattern(pattern)))
-            plotPm10Atmospheric.add(measurement.pm10Atmospheric)
-            plotPm25Atmospheric.add(measurement.pm25Atmospheric)
-            plotPm100Atmospheric.add(measurement.pm100Atmospheric)
+            measurement.date?.let { plotDate.add(it.format(DateTimeFormatter.ofPattern(pattern))) }
+            plotPm10Atmospheric.add(measurement.pm10)
+            plotPm25Atmospheric.add(measurement.pm25)
+            plotPm100Atmospheric.add(measurement.pm100)
         }
 
         model.addAttribute("timeRange", timeRange)

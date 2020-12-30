@@ -1,9 +1,9 @@
 import os
 import time
-import sqlalchemy as db
 from hm3301 import Hm3301WrongResponseException, Hm3301
 from config import Config
 from hm3301dummy import Hm3301Dummy
+import requests
 
 try:
     import pigpio
@@ -16,34 +16,22 @@ class Sampler(object):
     def __init__(self, sensor):
         self.sensor = sensor
 
-    def collect(self):
-        engine = db.create_engine(Config.DATABASE)
-        connection = engine.connect()
-        metadata = db.MetaData()
+    def submit(self):
 
-        table = db.Table('concentration', metadata,
-                         db.Column('date', db.DateTime()),
-                         db.Column('pm1 atmospheric', db.Integer()),
-                         db.Column('pm2.5 atmospheric', db.Integer()),
-                         db.Column('pm10 atmospheric', db.Integer()),
-                         db.Column('pm1 factory', db.Integer()),
-                         db.Column('pm2.5 factory', db.Integer()),
-                         db.Column('pm10 factory', db.Integer()))
-
-        metadata.create_all(engine)
+        url = Config.SERVER_URL + "/api/v1/recordPmMeasurement"
 
         while True:
             try:
                 data = self.sensor.get_data()
                 print(data)
 
-                query = db.insert(table).values(data)
-                result = connection.execute(query)
+                response = requests.post(url, json=data)
+
                 time.sleep(Config.SAMPLING_TIME)
             except Hm3301WrongResponseException as ex:
                 print(ex.message)
-            # finally:
-            #    self.sensor.close()
+            finally:
+               self.sensor.close()
 
 
 if __name__ == '__main__':

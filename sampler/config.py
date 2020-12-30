@@ -1,8 +1,8 @@
 
 class Config(object):
 
-    # Database
-    DATABASE = 'sqlite:///../db/concentration.sqlite'  # Database engine and name
+    # SERVER
+    SERVER_URL = "localhost"
 
     # Data sampling
     SAMPLING_STANDALONE = True      # If true, standalone sampler needs to be launched

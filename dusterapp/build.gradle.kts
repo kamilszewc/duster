@@ -23,7 +23,7 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
@@ -35,7 +35,13 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     // JDBC Sqlite
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.xerial:sqlite-jdbc:3.25.2")
+
+    // Spring JPA
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    // MySQL connector
+    runtimeOnly("mysql:mysql-connector-java")
 }
 
 tasks.withType<KotlinCompile> {
