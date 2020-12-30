@@ -8,7 +8,7 @@ spring.datasource:
   password: dusterPassword
 spring.jpa:
   database-platform: org.hibernate.dialect.MariaDB10Dialect
-  hibernate.ddl-auto: create-drop
+  hibernate.ddl-auto: update
 
 # Server port
 server.port: 8080
