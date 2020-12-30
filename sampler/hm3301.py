@@ -51,12 +51,12 @@ class Hm3301(object):
         if self.checksum(data):
             concentration = {
                 'date': datetime.datetime.now(),
+                'pm1 atmospheric': data[10] << 8 | data[11],
+                'pm2.5 atmospheric': data[12] << 8 | data[13],
+                'pm10 atmospheric': data[14] << 8 | data[15],
                 'pm1 factory': data[4] << 8 | data[5],
                 'pm2.5 factory': data[6] << 8 | data[7],
                 'pm10 factory': data[8] << 8 | data[9],
-                'pm1 atmospheric': data[10] << 8 | data[11],
-                'pm2.5 atmospheric': data[12] << 8 | data[13],
-                'pm10 atmospheric': data[14] << 8 | data[15]
             }
             return concentration
         else:

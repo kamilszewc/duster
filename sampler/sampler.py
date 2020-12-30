@@ -4,6 +4,7 @@ import sqlalchemy as db
 from hm3301 import Hm3301WrongResponseException, Hm3301
 from config import Config
 from hm3301dummy import Hm3301Dummy
+
 try:
     import pigpio
 except:
@@ -22,12 +23,12 @@ class Sampler(object):
 
         table = db.Table('concentration', metadata,
                          db.Column('date', db.DateTime()),
-                         db.Column('pm1 factory', db.Integer()),
-                         db.Column('pm2.5 factory', db.Integer()),
-                         db.Column('pm10 factory', db.Integer()),
                          db.Column('pm1 atmospheric', db.Integer()),
                          db.Column('pm2.5 atmospheric', db.Integer()),
-                         db.Column('pm10 atmospheric', db.Integer()))
+                         db.Column('pm10 atmospheric', db.Integer()),
+                         db.Column('pm1 factory', db.Integer()),
+                         db.Column('pm2.5 factory', db.Integer()),
+                         db.Column('pm10 factory', db.Integer()))
 
         metadata.create_all(engine)
 
@@ -41,7 +42,7 @@ class Sampler(object):
                 time.sleep(Config.SAMPLING_TIME)
             except Hm3301WrongResponseException as ex:
                 print(ex.message)
-            #finally:
+            # finally:
             #    self.sensor.close()
 
 
@@ -54,7 +55,7 @@ if __name__ == '__main__':
             pi = pigpio.pi()
 
         hm3301 = Hm3301(pi, sda=Config.PI_SDA, scl=Config.PI_SCL, i2c_address=Config.PI_I2C_ADDRESS)
-    else: 
+    else:
         hm3301 = Hm3301Dummy(None)
 
     sampler = Sampler(hm3301)
