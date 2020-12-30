@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# == 1 ]
+if [ $# == 0 ]
 then
     # Go to the directory of this script
     cd `dirname $0`
@@ -10,9 +10,9 @@ then
     python3 sampler.py &
     SAMPLER=$!
 
-    # Launch webapp
-    cd ../webapp
-    gunicorn -b $1 webapp:app &
+    # Launch dusterapp
+    cd ../dusterapp
+    ./gradlew bootRun &
     WEBAPP=$!
 
     # Wait for any of the proceses to end/fail
@@ -21,6 +21,6 @@ then
     # Kill both processes
     kill -9 $SAMPLER && kill -9 $WEBAPP
 else
-    echo "Usage: ./run.sh ip:port"
+    echo "Usage: ./duster"
 fi
 
