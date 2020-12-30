@@ -13,34 +13,45 @@ import java.time.format.DateTimeFormatter
 class MeasurementController @Autowired constructor(private val measurementProvider: MeasurementProvider) {
 
     @GetMapping("/measurements")
-    private fun measurements(@RequestParam(required = false) hours: Long?,
-                             @RequestParam(required = false) minutes: Long?,
-                             @RequestParam(required = false) seconds: Long?,
-                             @RequestParam(required = false, name = "time-range") timeRange: String?,
+    private fun measurements(@RequestParam(required = true, name = "time-range") timeRange: String?,
                              model: Model) : String {
 
         var localTimeDate = LocalDateTime.now()
-        if (hours != null) localTimeDate = localTimeDate.minusHours(hours)
-        if (minutes != null) localTimeDate = localTimeDate.minusMinutes(minutes)
-        if (seconds != null) localTimeDate = localTimeDate.minusSeconds(seconds)
+        var pattern = "yyyy-MM-dd hh:mm"
+        var averageType = "none"
 
-        if (timeRange == "hour") localTimeDate = localTimeDate.minusHours(1)
-        if (timeRange == "day") localTimeDate = localTimeDate.minusDays(1)
-        if (timeRange == "week") localTimeDate = localTimeDate.minusWeeks(1)
-        if (timeRange == "month") localTimeDate = localTimeDate.minusMonths(1)
-        if (timeRange == "year") localTimeDate = localTimeDate.minusYears(1)
+        if (timeRange == "hour") {
+            localTimeDate = localTimeDate.minusHours(1)
+            averageType = "none"
+            pattern = "hh:mm"
+        }
+        else if (timeRange == "day") {
+            localTimeDate = localTimeDate.minusDays(1)
+            averageType = "none"
+            pattern = "hh:mm"
+        }
+        else if (timeRange == "week") {
+            localTimeDate = localTimeDate.minusWeeks(1)
+            averageType = "hourly"
+            pattern = "yyyy-MM-dd hh:mm"
+        }
+        else if (timeRange == "month") {
+            localTimeDate = localTimeDate.minusMonths(1)
+            averageType = "daily"
+            pattern = "yyyy-MM-dd"
+        }
+        else if (timeRange == "year") {
+            localTimeDate = localTimeDate.minusYears(1)
+            averageType = "daily"
+            pattern = "yyyy-MM-dd"
+        }
 
-        val measurements = measurementProvider.provideLastMeasurements(localTimeDate, timeRange)
+        val measurements = measurementProvider.provideLastMeasurements(localTimeDate, averageType)
 
         val plotDate: MutableList<String> = mutableListOf()
         val plotPm10Atmospheric: MutableList<Double> = mutableListOf()
         val plotPm25Atmospheric: MutableList<Double> = mutableListOf()
         val plotPm100Atmospheric: MutableList<Double> = mutableListOf()
-
-        var pattern = "yyyy-MM-dd hh:mm"
-        if (timeRange == "hour" || timeRange == "day") {
-            pattern = "hh:mm"
-        }
 
         measurements.forEach { measurement ->
             plotDate.add(measurement.date.toLocalDateTime().format(DateTimeFormatter.ofPattern(pattern)))

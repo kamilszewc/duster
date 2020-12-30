@@ -1,11 +1,11 @@
 package pl.integrable.dusterapp.model
 
-import java.sql.Date
 import java.sql.Timestamp
+import java.time.LocalDateTime
 
 class Measurement(
-    val date: Timestamp,
-    val pm10Atmospheric: Double,
-    val pm25Atmospheric: Double,
-    val pm100Atmospheric: Double
+    var date: Timestamp,
+    var pm10Atmospheric: Double,
+    var pm25Atmospheric: Double,
+    var pm100Atmospheric: Double
 )

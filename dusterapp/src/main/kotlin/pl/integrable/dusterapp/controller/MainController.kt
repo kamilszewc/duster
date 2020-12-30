@@ -9,6 +9,6 @@ class MainController {
     @GetMapping("/")
     fun main() : String {
 
-        return "redirect:/measurements/?time-range=hour"
+        return "redirect:/measurements/?time-range=day"
     }
 }
