@@ -60,8 +60,6 @@ class PmMeasurementProvider @Autowired constructor(val pmMeasurementRepository: 
                 measurement.pm25 /= measurements.size
                 measurement.pm100 /= measurements.size
 
-                println(measurement.pm100)
-
                 averagedPmMeasurements.add(measurement)
 
                 untilMoment = fromMoment
