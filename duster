@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# == 0 ]
+if [ $# == 1 ]
 then
     # Go to the directory of this script
     cd `dirname $0`
@@ -12,7 +12,7 @@ then
 
     # Launch dusterapp
     cd ../dusterapp
-    ./gradlew bootRun &
+    ./gradlew bootRun --args="--server.port=${1}" &
     WEBAPP=$!
 
     # Wait for any of the proceses to end/fail
@@ -21,6 +21,6 @@ then
     # Kill both processes
     kill -9 $SAMPLER && kill -9 $WEBAPP
 else
-    echo "Usage: ./duster"
+    echo "Usage: ./duster port"
 fi
 

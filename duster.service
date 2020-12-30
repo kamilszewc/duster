@@ -4,7 +4,7 @@ After=pigpiod.service networking.service
 
 [Service]
 Type=simple
-ExecStart=(path to duster)/duster (ip:port)
+ExecStart=(path to duster)/duster (port)
 Restart=on-failure
 
 [Install]
