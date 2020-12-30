@@ -25,10 +25,10 @@ class Sampler(object):
                 data = self.sensor.get_data()
                 print(data)
 
-                #try:
-                response = requests.post(url, json=data)
-                #except:
-                #    pass
+                try:
+                    response = requests.post(url, json=data)
+                except:
+                    pass
 
                 time.sleep(Config.SAMPLING_TIME)
             except Hm3301WrongResponseException as ex:
