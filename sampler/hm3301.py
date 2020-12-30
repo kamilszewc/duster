@@ -20,17 +20,14 @@ class Hm3301(object):
         self.scl = scl
         self.i2c_address = i2c_address
 
-        try:
-            self.pi.bb_i2c_close(self.sda)
-        except:
-            pass
+        self.pi.bb_i2c_close(self.sda)
 
         self.pi.set_pull_up_down(self.sda, pigpio.PUD_UP)
         self.pi.set_pull_up_down(self.scl, pigpio.PUD_UP)
         self.pi.bb_i2c_open(self.sda, self.scl, 20000)
 
         self.pi.bb_i2c_zip(self.sda, [4, self.i2c_address, 2, 7, 1, 0x80, 2, 7, 1, 0x88, 3, 0])
-        time.sleep(1)
+        time.sleep(5)
 
     def close(self):
         self.pi.bb_i2c_close(self.sda)

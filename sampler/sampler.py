@@ -33,8 +33,8 @@ class Sampler(object):
                 time.sleep(Config.SAMPLING_TIME)
             except Hm3301WrongResponseException as ex:
                 print(ex.message)
-            finally:
-               self.sensor.close()
+            except Exception as ex:
+                print(ex.message)
 
 
 if __name__ == '__main__':
@@ -50,4 +50,5 @@ if __name__ == '__main__':
         hm3301 = Hm3301Dummy(None)
 
     sampler = Sampler(hm3301)
-    sampler.collect()
+    while True:
+        sampler.collect()
