@@ -57,7 +57,7 @@ class MeasurementProvider @Autowired constructor(private val jdbcTemplate: JdbcT
 
                 untilMoment = fromMoment
             }
-            return averagedMeasurements;
+            return averagedMeasurements.reversed();
 
         }
         if (averageType == "daily") {
@@ -85,7 +85,7 @@ class MeasurementProvider @Autowired constructor(private val jdbcTemplate: JdbcT
 
                 untilMoment = fromMoment
             }
-            return averagedMeasurements;
+            return averagedMeasurements.reversed();
 
         } else {
             val measurements = getMeasurementsFromDatabase(fromlocalDateTime, LocalDateTime.now())
