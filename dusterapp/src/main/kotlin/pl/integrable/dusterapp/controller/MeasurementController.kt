@@ -17,23 +17,23 @@ class MeasurementController @Autowired constructor(private val measurementProvid
                              model: Model) : String {
 
         var localTimeDate = LocalDateTime.now()
-        var pattern = "yyyy-MM-dd hh:mm"
+        var pattern = "yyyy-MM-dd HH:mm"
         var averageType = "none"
 
         if (timeRange == "hour") {
             localTimeDate = localTimeDate.minusHours(1)
             averageType = "none"
-            pattern = "hh:mm"
+            pattern = "HH:mm"
         }
         else if (timeRange == "day") {
             localTimeDate = localTimeDate.minusDays(1)
             averageType = "none"
-            pattern = "hh:mm"
+            pattern = "HH:mm"
         }
         else if (timeRange == "week") {
             localTimeDate = localTimeDate.minusWeeks(1)
             averageType = "hourly"
-            pattern = "yyyy-MM-dd hh:mm"
+            pattern = "yyyy-MM-dd HH:mm"
         }
         else if (timeRange == "month") {
             localTimeDate = localTimeDate.minusMonths(1)
