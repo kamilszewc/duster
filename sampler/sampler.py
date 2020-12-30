@@ -16,16 +16,19 @@ class Sampler(object):
     def __init__(self, sensor):
         self.sensor = sensor
 
-    def submit(self):
+    def collect(self):
 
         url = Config.SERVER_URL + "/api/v1/recordPmMeasurement"
-
+        
         while True:
             try:
                 data = self.sensor.get_data()
                 print(data)
 
+                #try:
                 response = requests.post(url, json=data)
+                #except:
+                #    pass
 
                 time.sleep(Config.SAMPLING_TIME)
             except Hm3301WrongResponseException as ex:

@@ -50,7 +50,6 @@ class Hm3301(object):
 
         if self.checksum(data):
             concentration = {
-                'date': datetime.datetime.now(),
                 'pm10': data[10] << 8 | data[11],
                 'pm25': data[12] << 8 | data[13],
                 'pm100': data[14] << 8 | data[15],

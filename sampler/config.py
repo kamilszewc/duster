@@ -2,7 +2,7 @@
 class Config(object):
 
     # SERVER
-    SERVER_URL = "localhost"
+    SERVER_URL = "http://localhost"
 
     # Data sampling
     SAMPLING_STANDALONE = True      # If true, standalone sampler needs to be launched

@@ -14,7 +14,6 @@ class Hm3301Dummy:
 
     def get_data(self):
         concentration = {
-            'date': datetime.datetime.now(),
             'pm10': random.randint(a=1, b=100),
             'pm25': random.randint(a=1, b=100),
             'pm100': random.randint(a=1, b=100)
