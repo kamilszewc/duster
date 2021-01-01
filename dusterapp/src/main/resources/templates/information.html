@@ -19,8 +19,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
-            <li><a class="nav-item nav-link" href="/measurements/pm?time-range=day">Particulate matter concentration</a></li>
-            <li><a class="nav-item nav-link" href="/measurements/temperature?time-range=day">Temperature</a></li>
+            <li th:if="${@environment.getProperty('modules.pm').equals('true')}"><a class="nav-item nav-link" href="/measurements/pm?time-range=day">Particulate matter concentration</a></li>
+            <li th:if="${@environment.getProperty('modules.temperature').equals('true')}"><a class="nav-item nav-link" href="/measurements/temperature?time-range=day">Temperature</a></li>
             <li><a class="nav-item nav-link" href="/information">Information<span class="sr-only">(current)</span></a></li>
         </ul>
     </div>

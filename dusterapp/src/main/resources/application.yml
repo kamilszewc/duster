@@ -20,3 +20,8 @@ logging:
   level:
     org.springframework: INFO
     com.essteyr.mammothmanager: DEBUG
+
+# Web modules:
+modules:
+  pm: true
+  temperature: true
