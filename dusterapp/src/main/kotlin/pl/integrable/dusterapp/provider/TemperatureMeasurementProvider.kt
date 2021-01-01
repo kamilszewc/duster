@@ -28,7 +28,7 @@ class TemperatureMeasurementProvider @Autowired constructor(val temperatureMeasu
                 }
 
                 measurement.temperature /= measurements.size
-                measurement.unit = measurements[0].unit
+                if (measurements.isNotEmpty()) measurement.unit = measurements[0].unit
 
                 averagedTemperatureMeasurements.add(measurement)
 
@@ -55,7 +55,7 @@ class TemperatureMeasurementProvider @Autowired constructor(val temperatureMeasu
                 measurement.temperature /= measurements.size
 
                 averageTemperatureMeasurements.add(measurement)
-                measurement.unit = measurements[0].unit
+                if (measurements.isNotEmpty()) measurement.unit = measurements[0].unit
 
                 untilMoment = fromMoment
             }
