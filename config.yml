@@ -1,0 +1,42 @@
+# JDBC data
+#spring.datasource.url: jdbc:sqlite:../db/concentration.sqlite
+
+# MySQL
+spring.datasource:
+  url: jdbc:mysql://localhost:3306/duster
+  username: duster
+  password: dusterPassword
+spring.jpa:
+  database-platform: org.hibernate.dialect.MariaDB10Dialect
+  hibernate.ddl-auto: update
+
+# Server port
+server.port: 80
+
+# Logging setup
+logging:
+  file:
+    name: dusterapp.log
+  level:
+    org.springframework: INFO
+    com.essteyr.mammothmanager: DEBUG
+
+# Web modules
+modules:
+  pm: true
+  temperature: true
+
+# Sampler
+sampler:
+  sensors:
+    - pm:
+        standalone: true
+        time: 60
+        dummy: false
+        pigpio:
+          url: "http://localhost"
+        address:
+          sda: 2
+          scl: 3
+          i2c: 0x40
+
