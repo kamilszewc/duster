@@ -70,6 +70,5 @@ class PmMeasurementProvider @Autowired constructor(val pmMeasurementRepository: 
             val measurements = pmMeasurementRepository.findAllByDateBetween(fromlocalDateTime, LocalDateTime.now())
             return measurements
         }
-
     }
 }

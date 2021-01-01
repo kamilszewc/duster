@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <title>Measurements</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">
+        <img class="d-inline-block align-top" th:src="@{/images/logo.png}" alt="" width="30" height="30"/> Duster sensor
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li><a class="nav-item nav-link" href="/measurements/pm?time-range=day">Particulate matter concentration<span class="sr-only">(current)</span></a></li>
+            <li><a class="nav-item nav-link" href="/measurements/temperature?time-range=day">Temperature</a></li>
+            <li><a class="nav-item nav-link" href="/information">Information</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card text-center border-light">
+        <div class="card-body">
+            <h4 class="card-title">Particulate matter concentration</h4>
+            <form th:action="@{/measurements/pm}" method="get">
+                <label for="time-range">Select the time range:</label>
+                <select id="time-range" th:name="time-range" class="form-select" aria-label="Default select example" onchange="this.form.submit()">
+                    <option th:value="hour" th:selected="${timeRange == 'hour'}">Last hour</option>
+                    <option th:value="day" th:selected="${timeRange == 'day'}">Last day</option>
+                    <option th:value="week" th:selected="${timeRange == 'week'}">Last week</option>
+                    <option th:value="month" th:selected="${timeRange == 'month'}">Last month</option>
+                    <option th:value="year" th:selected="${timeRange == 'year'}">Last year</option>
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <div class="chart-atmospheric-container" style="position: relative; height:40vh">
+        <canvas id="chart-atmospheric"></canvas>
+    </div>
+
+    <div class="card text-center border-light">
+        <div class="card-body">
+            <p class="card-text">
+                Atmospheric mass concentration - refers to mass concentration value obtained by density of main pollutants of air as equivalent particles<br>
+                - suitable for typical indoor/outdoor environments
+            </p>
+            <p>Last year and last month are averaged daily, last week is averaged hourly, other time-ranges are not averaged</p>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+
+<script th:inline="javascript">
+    var ctx = document.getElementById('chart-atmospheric');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: /*[[${plotDate}]]*/ [],
+            datasets:
+            [{
+                label: 'pm1',
+                type: 'line',
+                pointRadius: 0,
+                data: /*[[${plotPm10Atmospheric}]]*/ [],
+                borderWidth: 2,
+                borderColor: "rgb(75, 192, 192)",
+                fill: false
+            },
+            {
+                label: 'pm2.5',
+                type: 'line',
+                pointRadius: 0,
+                data: /*[[${plotPm25Atmospheric}]]*/ [],
+                borderWidth: 2,
+                borderColor: "rgb(75, 92, 192)",
+                fill: false
+            },
+            {
+                label: 'pm10',
+                type: 'line',
+                pointRadius: 0,
+                data: /*[[${plotPm100Atmospheric}]]*/ [],
+                borderWidth: 2,
+                borderColor: "rgb(75, 92, 19)",
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        maxRotation: 90,
+                        minRotation: 90
+                    }
+                }]
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
