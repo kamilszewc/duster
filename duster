@@ -10,8 +10,8 @@ then
 
     # Launch sampler
     cd sampler;
-    #python3 sampler.py &
-    #SAMPLER=$!
+    python3 sampler.py &
+    SAMPLER=$!
 
     # Launch dusterapp
     cd ../dusterapp
