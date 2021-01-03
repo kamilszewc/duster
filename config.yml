@@ -28,15 +28,13 @@ modules:
 
 # Sampler
 sampler:
+  period: 120
+  pigpio:
+          url: "http://localhost:8080"
   sensors:
-    - pm:
-        standalone: true
-        time: 60
-        dummy: false
+    pm:
+      - name: "hm3301Dummy"
         pigpio:
-          url: "http://localhost"
-        address:
           sda: 2
           scl: 3
           i2c: 0x40
-
