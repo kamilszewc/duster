@@ -6,6 +6,10 @@ name: Dusterapp
 on:
   release:
     types: [created]
+    
+env:
+  # TODO: Change variable to your image's name.
+  IMAGE_NAME: dusterapp
 
 jobs:
   build:
@@ -25,8 +29,29 @@ jobs:
       run: cd dusterapp && gradle build --exclude-task test
     
     - name: Build Docker image
-      run: cd dusterapp && docker build . --file Dockerfile --tag dusterapp:latest
+      run: cd dusterapp && docker build . --file Dockerfile --tag $IMAGE_NAME
 
+    - name: Push image
+      run: |
+        IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+
+        # Change all uppercase to lowercase
+        IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+
+        # Strip git ref prefix from version
+        VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+
+        # Strip "v" prefix from tag name
+        [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+
+        # Use Docker `latest` tag convention
+        [ "$VERSION" == "master" ] && VERSION=latest
+
+        echo IMAGE_ID=$IMAGE_ID
+        echo VERSION=$VERSION
+
+        docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+        docker push $IMAGE_ID:$VERSION
 
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
     # the publishing section of your build.gradle
