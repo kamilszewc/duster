@@ -1,0 +1,13 @@
+default:
+  image: adoptopenjdk:11-openj9-focal
+
+build:
+  stage: build
+
+  script:
+    - ./gradlew build
+
+  artifacts:
+    - build/libs/*
+    name: "build/libs"
+    expire_in: 1 day

@@ -11,7 +11,7 @@ spring.jpa:
   hibernate.ddl-auto: update
 
 # Server port
-server.port: 80
+server.port: 8080
 
 # Logging setup
 logging:
@@ -30,10 +30,10 @@ modules:
 sampler:
   period: 120
   pigpio:
-          url: "http://localhost"
+    url: "http://localhost"
   sensors:
     pm:
-      - name: "hm3301"
+      - name: "hm3301Dummy"
         pigpio:
           sda: 2
           scl: 3

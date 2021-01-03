@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    `maven-publish`
+//    `maven-publish`
     id("org.springframework.boot") version "2.4.1"
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     kotlin("jvm") version "1.4.21"
@@ -57,27 +57,27 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/kamilszewc/duster")
-            credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
-            }
-        }
-    }
-    publications {
-        create<MavenPublication>("gpr") {
-//            groupId = "org.gradle.sample"
-//            artifactId = "library"
-//            version = "1.1"
-
-            from(components["java"])
-        }
-    }
-}
+//publishing {
+//    repositories {
+//        maven {
+//            name = "GitHubPackages"
+//            url = uri("https://maven.pkg.github.com/kamilszewc/duster")
+//            credentials {
+//                username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+//                password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+//            }
+//        }
+//    }
+//    publications {
+//        create<MavenPublication>("gpr") {
+////            groupId = "org.gradle.sample"
+////            artifactId = "library"
+////            version = "1.1"
+//
+//            from(components["java"])
+//        }
+//    }
+//}
 
 configurations {
     val elements = listOf(apiElements, runtimeElements)

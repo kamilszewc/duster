@@ -8,21 +8,20 @@ then
     # Go to the directory of this script
     cd `dirname $0`
 
+    # Launch dusterapp
+    ./gradlew bootRun --args="--spring.config.location=$CONFIG_PATH" &
+    WEBAPP=$!
+
     # Launch sampler
     cd sampler;
-    python3 sampler.py $CONFIG_PATH #&
+    python3 sampler.py $CONFIG_PATH &
     SAMPLER=$!
 
-    # Launch dusterapp
-    #cd ../dusterapp
-    #./gradlew bootRun --args="--spring.config.location=$CONFIG_PATH" &
-    #WEBAPP=$!
-
     # Wait for any of the proceses to end/fail
-    #wait -n $SAMPLER $WEBAPP
+    wait -n $SAMPLER $WEBAPP
 
     # Kill both processes
-    #kill -9 $SAMPLER && kill -9 $WEBAPP
+    kill -9 $SAMPLER && kill -9 $WEBAPP
 else
     echo "Usage: ./duster path_to_config.yml"
 fi
