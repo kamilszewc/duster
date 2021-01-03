@@ -48,7 +48,7 @@ jobs:
 
         echo IMAGE_ID=$IMAGE_ID
         echo VERSION=$VERSION
-        docker build . --file Dockerfile --tag $IMAGE_ID:$VERSION
+        docker build . --file Dockerfile --tag $IMAGE_NAME
         docker images
 
     - name: Push image
