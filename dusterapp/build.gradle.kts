@@ -78,3 +78,11 @@ publishing {
         }
     }
 }
+
+configurations {
+    val elements = listOf(apiElements, runtimeElements)
+    elements.forEach { element ->
+        element.get().outgoing.artifacts.removeIf { it -> it.buildDependencies.getDependencies(null).contains(tasks.jar.get())}
+        element.get().outgoing.artifact(tasks.bootJar.get())
+    }
+}
