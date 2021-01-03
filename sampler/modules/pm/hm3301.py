@@ -1,5 +1,5 @@
 import time
-import datetime
+from modules.pm.pm_model import PmModel
 try:
     import pigpio
 except:
@@ -12,13 +12,32 @@ class Hm3301WrongResponseException(Exception):
         self.message = message
 
 
-class Hm3301(object):
+class Hm3301(PmModel):
 
-    def __init__(self, pi, sda=2, scl=3, i2c_address=0x40):
+    @staticmethod
+    def get_name(self):
+        return "hm3301"
+
+    def __init__(self, config, pi):
+        self.config = config
         self.pi = pi
-        self.sda = sda
-        self.scl = scl
-        self.i2c_address = i2c_address
+
+        sensor_parameters = self.config.get_sensor_parameters('pm', 'hm3301')
+
+        try:
+            self.sda = sensor_parameters['pigpio']['sda']
+        except:
+            self.sda = 2
+
+        try:
+            self.scl = sensor_parameters['pigpio']['scl']
+        except:
+            self.scl = 3
+
+        try:
+            self.i2c_address = hex(sensor_parameters['pigpio']['scl'])
+        except:
+            self.scl = 0x40
 
         self.pi.bb_i2c_close(self.sda)
 
@@ -40,7 +59,7 @@ class Hm3301(object):
             chksum += data[i]
         chksum = chksum & 0xff
         return chksum == data[28]
-   
+
     def get_data(self):
         (count, data) = self.pi.bb_i2c_zip(self.sda, [4, self.i2c_address, 2, 7, 1, 0x81, 3, 2, 6, 29, 3, 0])
         data = list(data)
@@ -58,19 +77,3 @@ class Hm3301(object):
         else:
             raise Hm3301WrongResponseException
 
-
-if __name__ == '__main__':
-
-    import pigpio
-    hm3301 = Hm3301(pigpio.pi())
-
-    try:
-        while True:
-            data = hm3301.get_data()
-            print(data)
-
-            time.sleep(5)
-    except Hm3301WrongResponseException as ex:
-        print(ex.message)
-    finally:
-        hm3301.close()
