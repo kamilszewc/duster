@@ -5,7 +5,7 @@ build:
   stage: build
 
   script:
-    - ./gradlew build
+    - ./gradlew build --exclude-task test
 
   artifacts:
     paths:
