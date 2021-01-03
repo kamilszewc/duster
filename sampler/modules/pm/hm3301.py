@@ -25,19 +25,20 @@ class Hm3301(PmModel):
         sensor_parameters = self.config.get_sensor_parameters('pm', 'hm3301')
 
         try:
-            self.sda = sensor_parameters['pigpio']['sda']
+            self.sda = int(sensor_parameters['pigpio']['sda'])
         except:
             self.sda = 2
 
         try:
-            self.scl = sensor_parameters['pigpio']['scl']
+            self.scl = int(sensor_parameters['pigpio']['scl'])
         except:
             self.scl = 3
 
         try:
-            self.i2c_address = hex(sensor_parameters['pigpio']['scl'])
+            #self.i2c_address = hex(sensor_parameters['pigpio']['scl'])
+            self.i2c_address = 0x40
         except:
-            self.scl = 0x40
+            self.i2c_address = 0x40
 
         self.pi.bb_i2c_close(self.sda)
 
