@@ -35,12 +35,15 @@ class Hm3301(PmModel):
             self.scl = 3
 
         try:
-            #self.i2c_address = hex(sensor_parameters['pigpio']['scl'])
-            self.i2c_address = 0x40
+            self.i2c_address = hex(sensor_parameters['pigpio']['i2c'])
+            print(self.i2c_addres)
         except:
             self.i2c_address = 0x40
 
-        self.pi.bb_i2c_close(self.sda)
+        try:
+            self.pi.bb_i2c_close(self.sda)
+        except:
+            pass
 
         self.pi.set_pull_up_down(self.sda, pigpio.PUD_UP)
         self.pi.set_pull_up_down(self.scl, pigpio.PUD_UP)
