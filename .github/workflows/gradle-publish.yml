@@ -25,7 +25,7 @@ jobs:
       run: cd dusterapp && gradle build --exclude-task test
     
     - name: Build Docker image
-      run: docker build . --file Dockerfile --tag dusterapp:latest
+      run: cd dusterapp && docker build . --file Dockerfile --tag dusterapp:latest
 
 
     # The USERNAME and TOKEN need to correspond to the credentials environment variables used in
