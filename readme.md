@@ -33,11 +33,12 @@ The duster web app will do the rest.
 Before using, you may need to install required python modules:
 > pip install -r requrements.txt
 
-#### Connecting Raspberry Pi and hm3301.
+#### Connecting Raspberry Pi and sensors.
 
-The connection of Raspberry PI with hm3301 is straightforward, the I2C bus is used.
+The connection of Raspberry PI with sensors is straightforward, the I2C bus is used.
+There is a lot of web pages describing it.
 The driver assumes that SDA at pin 2, SCL at 3, I2C address is 0x40.
-These values can be changed in `config.yml`.
+These values of `SDA`, `SCL` and `I2C address` can be changed in `config.yml`.
 
 ### Running duster release package
 
