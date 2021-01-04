@@ -27,7 +27,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew build --exclude-task test
+        run: |
+          ./gradlew build --exclude-task test
+          zip --junk-paths duster build/libs/*
 #       - name: Upload jar
 #         uses: actions/upload-artifact@v2-preview
 #         with:
