@@ -6,9 +6,13 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import pl.integrable.dusterapp.property.ModulesProperties
+import pl.integrable.dusterapp.property.ConnectivityProperties
 
 @SpringBootApplication
-@EnableConfigurationProperties(ModulesProperties::class)
+@EnableConfigurationProperties(
+    ModulesProperties::class,
+    ConnectivityProperties::class
+)
 class DusterappApplication {
 
     @Bean
