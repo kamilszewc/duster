@@ -36,7 +36,7 @@ jobs:
           cp LICENSE build/libs/
           cp readme.md build/libs/
           cp -r sampler build/libs/
-          zip --junk-paths duster build/libs/*
+          zip -r --junk-paths duster build/libs/*
 #       - name: Upload jar
 #         uses: actions/upload-artifact@v2-preview
 #         with:
