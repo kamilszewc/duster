@@ -31,7 +31,7 @@ jobs:
           ./gradlew build --exclude-task test
           mkdir duster
           cp build/libs/* duster/
-          cp dusterReleased duster/
+          cp dusterRunReleased duster/dusterRun
           cp config.yml duster/
           cp duster.service duster/
           cp pigpiod.service duster/

@@ -50,7 +50,7 @@ Download duster release package from github repo (please use a correct <release_
 
 Unzip it, make the needed changes in `config.yml` and call:
 
-> ./duster config.yml
+> ./dusterRun config.yml
 
 ### Running duster from sources
 
@@ -60,7 +60,7 @@ Before running `sampler.py`, the pigpiod client need to be run:
 
 After this, please make the needed changes in `config.yml` and call:
 
-> ./duster config.yml
+> ./dusterRun config.yml
 
 #### Running sampler.py standalone
 
