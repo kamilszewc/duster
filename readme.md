@@ -21,8 +21,11 @@ If you are not familiar with SQL, please just install MariaDB and type (in Ubunt
 And then, after the propomt:
 
 > create schema duster;
+> 
 > create user 'duster'@'localhost' identified by 'dusterPassword';
+> 
 > grant all privileges on duster.* to 'duster'@'localhost';
+> 
 > flush privileges;
 
 The duster web app will do the rest.
@@ -36,7 +39,20 @@ The connection of Raspberry PI with hm3301 is straightforward, the I2C bus is us
 The driver assumes that SDA at pin 2, SCL at 3, I2C address is 0x40.
 These values can be changed in `config.yml`.
 
-#### Running duster
+### Running duster release package
+
+Before running `sampler.py`, the pigpiod client need to be run:
+> sudo pigpiod
+
+Download duster release package from github repo (please use a correct <release_version>)
+
+> https://github.com/kamilszewc/duster/releases/download/<release_version>/duster.zip
+
+Unzip it, make the needed changes in `config.yml` and call:
+
+> ./duster config.yml
+
+### Running duster from sources
 
 Before running `sampler.py`, the pigpiod client need to be run:
 
@@ -59,7 +75,13 @@ Then, sampler can be run using simply (from `sampler` directory):
 The web application can be run just by calling (from `dusterapp` directory):
 > ./gradlew bootRun --args="--spring-config.location=config.yml"
 
-#### Duster as a service
+or alternatively:
+
+> ./gradlew build
+> 
+> java -jar build/libs/*.jar --spring.config.location=config.yml
+
+### Duster as a service
 
 In order to make your duster running as a service in you Raspberry,
 there are two service files provided: `pigpiod.service` and `duster.service`.

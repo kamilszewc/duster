@@ -29,6 +29,13 @@ jobs:
       - name: Build with Gradle
         run: |
           ./gradlew build --exclude-task test
+          cp dusterReleased build/libs/duster
+          cp config.yml build/libs/
+          cp duster.service build/libs/
+          cp pigpiod.service build/libs/
+          cp LICENSE build/libs/
+          cp readme.md build/libs/
+          cp -r sampler build/libs/
           zip --junk-paths duster build/libs/*
 #       - name: Upload jar
 #         uses: actions/upload-artifact@v2-preview
