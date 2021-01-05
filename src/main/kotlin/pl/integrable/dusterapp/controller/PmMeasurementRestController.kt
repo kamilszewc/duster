@@ -22,6 +22,8 @@ class PmMeasurementRestController @Autowired constructor(
     @PostMapping("/api/v1/record/pm")
     fun recordPmMeasurement(@RequestBody pmMeasurement: PmMeasurement) {
 
+        println("Data recieved")
+
         pmMeasurementRepository.save(pmMeasurement)
 
         if (connectivityProperties.serverUrl != "") {

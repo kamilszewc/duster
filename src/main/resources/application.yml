@@ -21,8 +21,8 @@ logging:
 
 # Resubmit data to
 connectivity:
-  server-url: "https://smog-w-toruniu.pl/api/v1/record"
-  server-token: "werwedsfdsdfarewa"
+  server-url: "http://localhost:8081/api/v1/record"
+  server-token: "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoibmFtZSIsInJvbGUiOiJST0xFX1NFTlNPUiIsImV4cCI6MTYwOTk3ODEyNn0.knTZxa7WVOVQ3cpUqKnASbB4TfGvAf9MKuPoxkf2kZc"
 
 
 # Web modules:

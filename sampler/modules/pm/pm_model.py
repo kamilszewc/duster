@@ -7,4 +7,4 @@ class PmModel(Model, ABC):
 
     @staticmethod
     def get_endpoint():
-        return "/api/v1/recordPmMeasurement"
+        return "/api/v1/record/pm"
