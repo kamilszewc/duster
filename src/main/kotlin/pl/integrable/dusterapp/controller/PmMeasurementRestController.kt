@@ -29,12 +29,16 @@ class PmMeasurementRestController @Autowired constructor(
         if (connectivityProperties.serverUrl != "") {
             val url = connectivityProperties.serverUrl + "/pm"
             val token = connectivityProperties.serverToken
+            println("Sending data to: " + url)
+            println("Using token: " + token)
             try {
                 val response = apiConsumer.consumePost<String, PmMeasurement>(
                     url,
                     pmMeasurement,
                     token,
                     object : ParameterizedTypeReference<String>() {})
+
+                println("Repsonse: " + response)
             } catch (e: Exception) {
                 println("Can not send data to server...")
             }
