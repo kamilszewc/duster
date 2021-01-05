@@ -1,5 +1,3 @@
-# JDBC data
-#spring.datasource.url: jdbc:sqlite:../db/concentration.sqlite
 
 # MySQL
 spring.datasource:
@@ -16,7 +14,7 @@ server.port: 8080
 # Logging setup
 logging:
   file:
-    name: dusterapp.log
+    name: duster.log
   level:
     org.springframework: INFO
     com.essteyr.mammothmanager: DEBUG
@@ -24,7 +22,7 @@ logging:
 # Resubmit data to
 connectivity:
   server-url: "https://smog-w-toruniu.pl/api/v1/record"
-  server-token: "werwearewa"
+  server-token: "werwedsfdsdfarewa"
 
 
 # Web modules:

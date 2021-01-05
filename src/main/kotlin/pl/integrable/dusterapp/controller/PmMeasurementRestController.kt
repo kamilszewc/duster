@@ -19,7 +19,7 @@ class PmMeasurementRestController @Autowired constructor(
     val apiConsumer: ApiConsumer
 ) {
 
-    @PostMapping("/api/v1/recordPmMeasurement")
+    @PostMapping("/api/v1/record/pm")
     fun recordPmMeasurement(@RequestBody pmMeasurement: PmMeasurement) {
 
         pmMeasurementRepository.save(pmMeasurement)

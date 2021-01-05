@@ -1,6 +1,8 @@
 package pl.integrable.dusterapp.model
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import org.hibernate.annotations.CreationTimestamp
+import org.springframework.format.annotation.DateTimeFormat
 import java.sql.Timestamp
 import java.time.LocalDateTime
 import javax.persistence.Entity
@@ -14,6 +16,8 @@ class PmMeasurement(
     var pm25: Double,
     var pm100: Double,
     @CreationTimestamp
+    @DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", shape = JsonFormat.Shape.STRING)
     var date: LocalDateTime? = null,
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

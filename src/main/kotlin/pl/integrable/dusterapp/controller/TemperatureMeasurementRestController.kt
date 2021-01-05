@@ -18,7 +18,7 @@ class TemperatureMeasurementRestController @Autowired constructor(
     val apiConsumer: ApiConsumer
 ) {
 
-    @PostMapping("/api/v1/recordTemperatureMeasurement")
+    @PostMapping("/api/v1/record/temperature")
     fun recordPmMeasurement(@RequestBody temperatureMeasurement: TemperatureMeasurement) {
 
         temperatureMeasurementRepository.save(temperatureMeasurement)
