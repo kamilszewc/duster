@@ -1,4 +1,4 @@
-## Duster - Particulate Matter Concentration analyzer - local (home) server for Raspberry Pi
+## Duster - Particulate Matter Concentration/Temperature/Pressure/Humidity sensor - local (home) server for Raspberry Pi
 
 Web app and set of drivers (modules) for Raspberry PI and Grove sensors
 This version is tested only in Raspberry PI 4 and hm3301 sensor.
