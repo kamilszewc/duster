@@ -18,5 +18,6 @@ class Broker:
                 server = "http://localhost"
             url = server + Model.endpoints[key]
             print(url)
+            print(data)
             response = requests.post(url, json=data)
 

@@ -1,10 +1,8 @@
-import os
 import time
 from sys import argv
 from config import Config
 from broker import Broker
 from collector import Collector
-from modules.sensors.hm3301dummy import Hm3301Dummy
 from modules.registry import registry
 
 

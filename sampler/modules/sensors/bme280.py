@@ -21,14 +21,17 @@
 import smbus
 import time
 from ctypes import c_short
-from ctypes import c_byte
-from ctypes import c_ubyte
+
+from modules.model import Model
 
 DEVICE = 0x76  # Default device I2C address
 BUS = 1 # Rev 2 Pi, Pi 2 & Pi 3 uses bus 1
 
 
-class Bme280(object):
+class Bme280(Model):
+
+    def __init__(self, config):
+        self.config = config
 
     def getShort(self, data, index):
         # return two bytes from data as a signed 16-bit value

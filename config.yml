@@ -38,3 +38,4 @@ sampler:
         sda: 2
         scl: 3
         i2c: 0x40
+    - name: "bme280Dummy"
