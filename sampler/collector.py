@@ -1,5 +1,3 @@
-import time
-
 
 class Collector(object):
 
@@ -10,12 +8,12 @@ class Collector(object):
     def collect(self):
 
         try:
-            data = self.broker.model.get_data()
-            print("Collected: " + str(data))
+            data_to_send = self.broker.model.get_data_to_send()
+            print("Collected: " + str(data_to_send))
 
             try:
                 print("Trying to send...")
-                self.broker.send(data)
+                self.broker.send(data_to_send)
             except Exception as ex:
                 print("Can not send :(")
             else:

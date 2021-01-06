@@ -9,7 +9,14 @@ class Broker:
         self.config = config
         self.model = model
 
-    def send(self, data: dict):
-        url = self.config.get_server_url() + self.model.get_endpoint()
-        response = requests.post(url, json=data)
+    def send(self, data_to_send: dict):
+        for key in data_to_send:
+            data = data_to_send[key]
+            try:
+                server = self.config.get_server_url()
+            except:
+                server = "http://localhost"
+            url = server + Model.endpoints[key]
+            print(url)
+            response = requests.post(url, json=data)
 
