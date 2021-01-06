@@ -7,22 +7,10 @@ from collector import Collector
 from modules.sensors.hm3301dummy import Hm3301Dummy
 from modules.registry import registry
 
-try:
-    import pigpio
-except:
-    pass
-
 
 if __name__ == '__main__':
 
     config = Config(argv[1])
-
-    try:
-        pi = pigpio.pi(os.environ['PIGPIOD_HOST'])
-    except KeyError:
-        pi = pigpio.pi()
-    except:
-        pi = None
 
     models = []
 
@@ -34,7 +22,7 @@ if __name__ == '__main__':
         except:
             print("There is no registered sensor " + sensor)
 
-    models = [model(config, pi) for model in models]
+    models = [model(config) for model in models]
     brokers = [Broker(config, model) for model in models]
     collectors = [Collector(config, broker) for broker in brokers]
     while True:

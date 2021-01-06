@@ -8,9 +8,8 @@ class Hm3301Dummy(Model):
     def get_name(self):
         return "hm3301Dummy"
 
-    def __init__(self, config, pi):
+    def __init__(self, config):
         self.config = config
-        self.pi = pi
 
     def get_data(self):
         concentration = {

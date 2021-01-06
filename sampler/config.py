@@ -29,10 +29,11 @@ class Config(object):
         list_of_sensors = [it['name'] for it in self.config['sensors']]
         return list_of_sensors
 
-    def get_sensor_parameters(self, module_name: str, sensor_name: str) -> dict:
-        for sensor in self.config['sensors'][module_name]:
-            if sensor['name'] == sensor_name:
-                return sensor
+    def get_sensor_parameters(self, sensor_name: str) -> dict:
+        pass
+        #    for sensor in self.config['sensors']:
+    #        if sensor['name'] == sensor_name:
+    #        return sensor
 
 
 

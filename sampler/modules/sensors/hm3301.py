@@ -45,8 +45,9 @@ class Hm3301(Model):
     def get_name(self):
         return "hm3301"
 
-    def __init__(self, bus_nr=1):
-        sensor_parameters = self.config.get_sensor_parameters('sensors', 'hm3301')
+    def __init__(self, config, bus_nr=1):
+        self.config = config
+        sensor_parameters = self.config.get_sensor_parameters('hm3301')
 
         with SMBus(bus_nr) as bus:
             write = i2c_msg.write(HM3301_DEFAULT_I2C_ADDR, [SELECT_I2C_ADDR])
