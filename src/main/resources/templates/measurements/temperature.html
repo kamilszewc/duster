@@ -21,6 +21,8 @@
         <ul class="navbar-nav mr-auto">
             <li th:if="${@environment.getProperty('modules.pm').equals('true')}"><a class="nav-item nav-link" href="/measurements/pm?time-range=day">Particulate matter concentration</a></li>
             <li th:if="${@environment.getProperty('modules.temperature').equals('true')}"><a class="nav-item nav-link" href="/measurements/temperature?time-range=day">Temperature<span class="sr-only">(current)</span></a></li>
+            <li th:if="${@environment.getProperty('modules.pressure').equals('true')}"><a class="nav-item nav-link" href="/measurements/pressure?time-range=day">Pressure</a></li>
+            <li th:if="${@environment.getProperty('modules.humidity').equals('true')}"><a class="nav-item nav-link" href="/measurements/humidity?time-range=day">Humidity</a></li>
             <li><a class="nav-item nav-link" href="/information">Information</a></li>
         </ul>
     </div>

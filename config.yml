@@ -27,6 +27,8 @@ connectivity:
 modules:
   pm: true
   temperature: true
+  pressure: true
+  humidity: true
 
 # Sampler
 sampler:
