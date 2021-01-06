@@ -25,7 +25,7 @@ class ApiConsumer {
 //            return clientHttpRequestFactory
 //        }
 
-    fun <T> consumeGet(url: String, token: String, typeRef: ParameterizedTypeReference<*>?): T? {
+    fun <T> consumeGet(url: String, token: String, typeRef: ParameterizedTypeReference<T>?): T? {
 
         // Get task command template
         val httpHeaders = HttpHeaders()
@@ -43,7 +43,7 @@ class ApiConsumer {
         return response.getBody()
     }
 
-    fun <T, U> consumePost(url: String, requestBody: U?, token: String, typeRef: ParameterizedTypeReference<*>?): T? {
+    fun <T, U> consumePost(url: String, requestBody: U?, token: String, typeRef: ParameterizedTypeReference<T>?): T? {
 
         // Get task command template
         val httpHeaders = HttpHeaders()

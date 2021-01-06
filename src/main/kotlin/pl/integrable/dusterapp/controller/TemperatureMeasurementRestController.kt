@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import pl.integrable.dusterapp.model.PmMeasurement
 import pl.integrable.dusterapp.model.TemperatureMeasurement
+import pl.integrable.dusterapp.payload.Status
 import pl.integrable.dusterapp.property.ConnectivityProperties
 import pl.integrable.dusterapp.provider.ApiConsumer
 import pl.integrable.dusterapp.repository.TemperatureMeasurementRepository
@@ -27,11 +28,13 @@ class TemperatureMeasurementRestController @Autowired constructor(
             val url = connectivityProperties.serverUrl + "/temperature"
             val token = connectivityProperties.serverToken
             try {
-                val response = apiConsumer.consumePost<String, TemperatureMeasurement>(
+                val response = apiConsumer.consumePost<Status<String>, TemperatureMeasurement>(
                     url,
                     temperatureMeasurement,
                     token,
-                    object : ParameterizedTypeReference<String>() {})
+                    object : ParameterizedTypeReference<Status<String>>() {})
+
+                println("Response: " + let { response?.message })
             } catch (e: Exception) {
                 println("Can not send data to server...")
             }

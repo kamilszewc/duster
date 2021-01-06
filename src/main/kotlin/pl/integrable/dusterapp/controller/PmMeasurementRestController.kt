@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import pl.integrable.dusterapp.model.PmMeasurement
+import pl.integrable.dusterapp.payload.Status
 import pl.integrable.dusterapp.property.ConnectivityProperties
 import pl.integrable.dusterapp.provider.ApiConsumer
 import pl.integrable.dusterapp.repository.PmMeasurementRepository
@@ -22,23 +23,20 @@ class PmMeasurementRestController @Autowired constructor(
     @PostMapping("/api/v1/record/pm")
     fun recordPmMeasurement(@RequestBody pmMeasurement: PmMeasurement) {
 
-        println("Data recieved")
-
         pmMeasurementRepository.save(pmMeasurement)
 
         if (connectivityProperties.serverUrl != "") {
             val url = connectivityProperties.serverUrl + "/pm"
             val token = connectivityProperties.serverToken
-            println("Sending data to: " + url)
-            println("Using token: " + token)
+
             try {
-                val response = apiConsumer.consumePost<String, PmMeasurement>(
+                val response = apiConsumer.consumePost<Status<String>, PmMeasurement>(
                     url,
                     pmMeasurement,
                     token,
-                    object : ParameterizedTypeReference<String>() {})
+                    object : ParameterizedTypeReference<Status<String>>() {})
 
-                println("Repsonse: " + response)
+                println("Response: " + let { response?.message })
             } catch (e: Exception) {
                 println("Can not send data to server...")
             }
