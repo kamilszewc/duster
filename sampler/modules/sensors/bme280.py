@@ -175,7 +175,7 @@ class Bme280(Model):
     def get_data_to_send(self):
         temperature, pressure, humidity = self.readBME280All()
         return {
-            "temperature": temperature,
-            "pressure": pressure,
-            "humidity": humidity
+            "temperature": {"temperature": temperature},
+            "pressure": {"pressure": pressure},
+            "humidity": {"humidity": humidity}
         }
