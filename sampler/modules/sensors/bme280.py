@@ -62,6 +62,10 @@ class Bme280(Model):
 
     def readBME280All(self, addr=DEVICE):
         bus = smbus.SMBus(BUS)
+"""
+        temperature = 0
+        pressure = 0
+        humidity = 0
         # Register Addresses
         REG_DATA = 0xF7
         REG_CONTROL = 0xF4
@@ -79,7 +83,6 @@ class Bme280(Model):
         # Oversample setting for humidity register - page 26
         OVERSAMPLE_HUM = 2
         bus.write_byte_data(addr, REG_CONTROL_HUM, OVERSAMPLE_HUM)
-
         control = OVERSAMPLE_TEMP << 5 | OVERSAMPLE_PRES << 2 | MODE
         bus.write_byte_data(addr, REG_CONTROL, control)
 
@@ -160,9 +163,9 @@ class Bme280(Model):
             humidity = 100
         elif humidity < 0:
             humidity = 0
-
+            """
         return temperature / 100.0, pressure / 100.0, humidity
-
+    
     @staticmethod
     def get_name(self):
         return "bme280"
