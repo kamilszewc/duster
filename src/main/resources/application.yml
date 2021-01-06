@@ -19,14 +19,22 @@ logging:
     org.springframework: INFO
     com.essteyr.mammothmanager: DEBUG
 
-# Resubmit data to
 connectivity:
   server-url: "http://localhost:8081/api/v1/record"
   server-token: "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoibmFtZSIsInJvbGUiOiJST0xFX1NFTlNPUiIsImV4cCI6MTYwOTk3ODEyNn0.knTZxa7WVOVQ3cpUqKnASbB4TfGvAf9MKuPoxkf2kZc"
 
-
-# Web modules:
+# Web modules
 modules:
   pm: true
   temperature: true
 
+# Sampler
+sampler:
+  period: 120
+  server-url: "http://localhost:8080"
+  sensors:
+    - name: "hm3301Dummy"
+      pigpio:
+        sda: 2
+        scl: 3
+        i2c: 0x40
