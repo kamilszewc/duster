@@ -54,7 +54,7 @@ class ApiConsumer {
         val restTemplate = RestTemplate()
         val response: ResponseEntity<T> = restTemplate.exchange(
             url,
-            HttpMethod.GET,
+            HttpMethod.POST,
             httpEntity,
             typeRef as ParameterizedTypeReference<Any>
         ) as ResponseEntity<T>

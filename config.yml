@@ -14,14 +14,14 @@ server.port: 8080
 # Logging setup
 logging:
   file:
-    name: dusterapp.log
+    name: duster.log
   level:
     org.springframework: INFO
     com.essteyr.mammothmanager: DEBUG
 
 connectivity:
-  server-url: "https://smog-w-toruniu.pl/api/v1/submit"
-  server-token: "fawefraw3"
+  server-url: "http://localhost:8081/api/v1/record"
+  server-token: "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoibmFtZSIsInJvbGUiOiJST0xFX1NFTlNPUiIsImV4cCI6MTYwOTkzODM3NH0.cFAee5ANAStqDtM9b9itk7G4UOra3f88_C5oy9Rv670"
 
 # Web modules
 modules:
