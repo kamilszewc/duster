@@ -1,8 +1,8 @@
 import random
-from modules.pm.pm_model import PmModel
+from modules.model import Model
 
 
-class Hm3301Dummy(PmModel):
+class Hm3301Dummy(Model):
 
     @staticmethod
     def get_name(self):
@@ -12,9 +12,6 @@ class Hm3301Dummy(PmModel):
         self.config = config
         self.pi = pi
 
-    def close(self):
-        pass
-
     def get_data(self):
         concentration = {
             'pm10': random.randint(a=1, b=100),
@@ -22,3 +19,8 @@ class Hm3301Dummy(PmModel):
             'pm100': random.randint(a=1, b=100)
         }
         return concentration
+
+    def get_data_to_send(self):
+        return {
+            "pm": self.get_data()
+        }

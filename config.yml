@@ -21,7 +21,7 @@ logging:
 
 connectivity:
   server-url: "http://localhost:8081/api/v1/record"
-  server-token: "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoibmFtZSIsInJvbGUiOiJST0xFX1NFTlNPUiIsImV4cCI6MTYwOTkzODM3NH0.cFAee5ANAStqDtM9b9itk7G4UOra3f88_C5oy9Rv670"
+  server-token: "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoibmFtZSIsInJvbGUiOiJST0xFX1NFTlNPUiIsImV4cCI6MTYwOTk3ODEyNn0.knTZxa7WVOVQ3cpUqKnASbB4TfGvAf9MKuPoxkf2kZc"
 
 # Web modules
 modules:
@@ -31,12 +31,10 @@ modules:
 # Sampler
 sampler:
   period: 120
-  pigpio:
-    url: "http://localhost"
+  server-url: "http://localhost:8080"
   sensors:
-    pm:
-      - name: "hm3301Dummy"
-        pigpio:
-          sda: 2
-          scl: 3
-          i2c: 0x40
+    - name: "hm3301Dummy"
+      pigpio:
+        sda: 2
+        scl: 3
+        i2c: 0x40
