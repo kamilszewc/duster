@@ -33,6 +33,7 @@ THE SOFTWARE.
 
 from smbus2 import SMBus, i2c_msg
 import time
+from exceptions import WrongResponseException
 
 HM3301_DEFAULT_I2C_ADDR = 0x40
 SELECT_I2C_ADDR = 0x88
@@ -67,12 +68,13 @@ class Hm3301(Model):
         return (sum == data[28])
 
     def get_data_to_send(self):
-        time.sleep(.1)
+        time.sleep(1)
 
         data = self.read_data()
         # print data
         if (self.check_crc(data) != True):
             print("CRC error!")
+            raise WrongResponseException
 
         concentration = {
             "pm10": data[10] << 8 | data[11],
@@ -87,7 +89,4 @@ class Hm3301(Model):
         }
 
 
-class Hm3301WrongResponseException(Exception):
 
-    def __init__(self, message="Hm3301 wrong response."):
-        self.message = message

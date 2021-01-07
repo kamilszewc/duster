@@ -4,5 +4,3 @@ RUN apt-get install -y python3 python3-pip python3-pigpio pigpio-tools gunicorn 
 COPY requirements.txt /app/
 RUN pip3 install -r /app/requirements.txt
 COPY *.py /app/
-#RUN python3 sampler.py
-#RUN gunicorn3 -b localhost:80 webapp:app

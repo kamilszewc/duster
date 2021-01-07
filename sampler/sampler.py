@@ -26,4 +26,5 @@ if __name__ == '__main__':
     while True:
         for collector in collectors:
             collector.collect()
+            time.sleep(3)
         time.sleep(config.get_sampling_period())
