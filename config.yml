@@ -21,7 +21,7 @@ logging:
 
 connectivity:
   server-url: "http://localhost:8081/api/v1/record"
-  server-token: "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoibmFtZSIsInJvbGUiOiJST0xFX1NFTlNPUiIsImV4cCI6MTYwOTk3ODEyNn0.knTZxa7WVOVQ3cpUqKnASbB4TfGvAf9MKuPoxkf2kZc"
+  server-token: "eyJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwic3ViIjoibmFtZSIsInJvbGUiOiJST0xFX1NFTlNPUiIsImV4cCI6MTkyNTQwNjM1MX0.8tyrwQlyLUPpwj02yULp1-n7VqNA5q1aDLnojMfi05I"
 
 # Web modules
 modules:

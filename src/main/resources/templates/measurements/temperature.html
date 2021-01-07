@@ -31,7 +31,7 @@
 <div class="container">
     <div class="card text-center border-light">
         <div class="card-body">
-            <h4 class="card-title">Temperature</h4>
+            <h4 class="card-title">Temperature [&deg;C]</h4>
             <form th:action="@{/measurements/temperature}" method="get">
                 <label for="time-range">Select the time range:</label>
                 <select id="time-range" th:name="time-range" class="form-select" aria-label="Default select example" onchange="this.form.submit()">
@@ -79,6 +79,9 @@
                 }]
         },
         options: {
+            legend: {
+                display: false
+            },
             responsive: true,
             maintainAspectRatio: false,
             scales: {
