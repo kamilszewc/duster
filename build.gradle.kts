@@ -11,8 +11,8 @@ plugins {
 
 
 group = "pl.integrable"
-version = "v0.1-alpha"
-java.sourceCompatibility = JavaVersion.VERSION_11
+version = "v0.22-alpha"
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 configurations {
     compileOnly {
@@ -49,7 +49,7 @@ dependencies {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "11"
+        jvmTarget = "1.8"
     }
 }
 
