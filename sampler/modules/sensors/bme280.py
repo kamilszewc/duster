@@ -157,10 +157,14 @@ class Bme280(Model):
             pressure = pressure + (var1 + var2 + dig_P7) / 16.0
 
         # Refine humidity
-        humidity = t_fine - 76800.0
-        humidity = (hum_raw - (dig_H4 * 64.0 + dig_H5 / 16384.0 * humidity)) * (
-                dig_H2 / 65536.0 * (1.0 + dig_H6 / 67108864.0 * humidity * (1.0 + dig_H3 / 67108864.0 * humidity)))
-        humidity = humidity * (1.0 - dig_H1 * humidity / 524288.0)
+        var1 = t_fine - 76800.0
+        var2 = (dig_H4 * 64.0 + ((dig_H5) / 16384.0) * var1)
+        var3 = hum_raw - var2;
+        var4 = dig_H2 / 65536.0;
+        var5 = (1.0 + (dig_H3 / 67108864.0) * var1)
+        var6 = 1.0 + (dig_H6 / 67108864.0) * var1 * var5
+        var6 = var3 * var4 * (var5 * var6)
+        humidity = var6 * (1.0 - (dig_H1) * var6 / 524288.0)
         if humidity > 100:
             humidity = 100
         elif humidity < 0:
